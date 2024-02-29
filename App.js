@@ -2,12 +2,22 @@ const loadData = async () => {
   const res = await fetch('https://openapi.programming-hero.com/api/ai/tools');
   const data = await res.json();
   const aiData = data.data.tools;
-  displayData(aiData);
+  displayData(aiData, true);
+  const showMoreBtn = document.getElementById('showMoreBtn');
+  showMoreBtn.addEventListener('click', () => {
+    displayData(aiData, false);
+    showMoreBtn.style.display ='none';
+  });
 };
 
-const displayData = data => {
+const displayData = (data, status) => {
   const display = document.getElementById('display');
-  data.map(item => {
+  if (status == true) {
+    var target = data.slice(0, 6);
+  } else {
+    var target = data.slice(7, data.length);
+  }
+  target.forEach(item => {
     // console.log(item.id);
     const div = document.createElement('div');
     div.innerHTML = `
@@ -51,7 +61,7 @@ const modalDisplay = async id => {
 
 const modalDatadisplay = finalData => {
   const displayModal = document.getElementById('displayModal');
-  displayModal.innerHTML=''
+  displayModal.innerHTML = '';
   const div = document.createElement('div');
   div.innerHTML = `
                 <div class="grid grid-cols-1 lg:grid-cols-2 m-3 gap-3">
