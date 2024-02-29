@@ -60,7 +60,7 @@ const modalDatadisplay = finalData => {
                   >
                     <p class="text-base font-semibold">${finalData.description}</p>
                     <div>
-                      <div class="flex gap-1 justify-between box-border flex-wrap">
+                      <div class="flex gap-2 justify-between flex-wrap">
                         <p class="p-2 bg-[#FFFFFF] rounded-xl">
                           ${finalData.pricing[0].price}<br />${finalData.pricing[0].plan}
                         </p>
