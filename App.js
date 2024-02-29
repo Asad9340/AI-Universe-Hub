@@ -52,7 +52,6 @@ const modalDisplay = async id => {
 const modalDatadisplay = finalData => {
   const displayModal = document.getElementById('displayModal');
   displayModal.innerHTML=''
-  console.log(finalData);
   const div = document.createElement('div');
   div.innerHTML = `
                 <div class="grid grid-cols-1 lg:grid-cols-2 m-3 gap-3">
