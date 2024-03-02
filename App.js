@@ -1,24 +1,45 @@
+const sortBtn = document.getElementById('sortBtn');
+
 const loadData = async () => {
   const res = await fetch('https://openapi.programming-hero.com/api/ai/tools');
   const data = await res.json();
   const aiData = data.data.tools;
-  displayData(aiData, true);
+  displayData(aiData, true, false);
   const showMoreBtn = document.getElementById('showMoreBtn');
   showMoreBtn.addEventListener('click', () => {
-    displayData(aiData, false);
+    displayData(aiData, false, false);
     showMoreBtn.style.display = 'none';
+  });
+
+  sortBtn.addEventListener('click', () => {
+    const sortValue = true;
+    displayData(aiData, true, sortValue);
   });
 };
 
-const displayData = (data, status) => {
+const displayData = (data, status, sortValue) => {
   const display = document.getElementById('display');
   if (status == true) {
     var target = data.slice(0, 6);
   } else {
     var target = data.slice(7, data.length);
   }
+  if (sortValue) {
+    target.sort((a, b) => {
+      const dateString = a.published_in;
+      const date = new Date(dateString);
+      const milliseconds = date.getTime();
+      const firstValue = parseInt(milliseconds) || 0;
+      const dateString2 = b.published_in;
+      const date2 = new Date(dateString2);
+      const milliseconds2 = date2.getTime();
+      const secondValue = parseInt(milliseconds2) || 0;
+      return firstValue - secondValue;
+    });
+    display.innerHTML='';
+  }
+  console.log(target);
   target.forEach(item => {
-    // console.log(item.id);
     const div = document.createElement('div');
     div.innerHTML = `
               <div class="p-6 space-y-5">
@@ -117,45 +138,3 @@ const modalDatadisplay = finalData => {
   displayModal.appendChild(div);
 };
 loadData();
-
-// document.getElementById('sortBtn').addEventListener('click', () => {
-//   const loadSortedData = async () => {
-//     const res = await fetch(
-//       'https://openapi.programming-hero.com/api/ai/tools'
-//     );
-//     const data = await res.json();
-//     const aiData = data.data.tools;
-//     // displayData(aiData, true);
-//     // const showMoreBtn = document.getElementById('showMoreBtn');
-//     // showMoreBtn.addEventListener('click', () => {
-//     //   displayData(aiData, false);
-//     //   showMoreBtn.style.display = 'none';
-//     // });
-
-//     const newArray = [];
-//     const sorted = aiData.map(item => {
-//       const dateString = item.published_in;
-//       const date = new Date(dateString);
-//       const milliseconds = date.getTime();
-//       newArray.push(milliseconds);
-//     });
-//     newArray.sort((a, b) => {
-//       return a - b;
-//     });
-//     newArray.forEach((item, index) => {
-//       var date = new Date(item);
-//       var year = date.getFullYear();
-//       var month = date.getMonth() + 1;
-//       var day = date.getDate();
-//       var formattedDate = month + '/' + day + '/' + year;
-//       let xx = aiData[index].published_in;
-//       console.log(xx);
-//       if (xx == formattedDate) {
-//         const display = document.getElementById('display');
-//         display.innerHTML ='';
-//         displayData(aiData, true);
-//       }
-//     });
-//   };
-//   loadSortedData();
-// });
