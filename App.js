@@ -6,7 +6,7 @@ const loadData = async () => {
   const showMoreBtn = document.getElementById('showMoreBtn');
   showMoreBtn.addEventListener('click', () => {
     displayData(aiData, false);
-    showMoreBtn.style.display ='none';
+    showMoreBtn.style.display = 'none';
   });
 };
 
@@ -117,3 +117,45 @@ const modalDatadisplay = finalData => {
   displayModal.appendChild(div);
 };
 loadData();
+
+// document.getElementById('sortBtn').addEventListener('click', () => {
+//   const loadSortedData = async () => {
+//     const res = await fetch(
+//       'https://openapi.programming-hero.com/api/ai/tools'
+//     );
+//     const data = await res.json();
+//     const aiData = data.data.tools;
+//     // displayData(aiData, true);
+//     // const showMoreBtn = document.getElementById('showMoreBtn');
+//     // showMoreBtn.addEventListener('click', () => {
+//     //   displayData(aiData, false);
+//     //   showMoreBtn.style.display = 'none';
+//     // });
+
+//     const newArray = [];
+//     const sorted = aiData.map(item => {
+//       const dateString = item.published_in;
+//       const date = new Date(dateString);
+//       const milliseconds = date.getTime();
+//       newArray.push(milliseconds);
+//     });
+//     newArray.sort((a, b) => {
+//       return a - b;
+//     });
+//     newArray.forEach((item, index) => {
+//       var date = new Date(item);
+//       var year = date.getFullYear();
+//       var month = date.getMonth() + 1;
+//       var day = date.getDate();
+//       var formattedDate = month + '/' + day + '/' + year;
+//       let xx = aiData[index].published_in;
+//       console.log(xx);
+//       if (xx == formattedDate) {
+//         const display = document.getElementById('display');
+//         display.innerHTML ='';
+//         displayData(aiData, true);
+//       }
+//     });
+//   };
+//   loadSortedData();
+// });
